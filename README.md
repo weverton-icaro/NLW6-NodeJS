@@ -4,17 +4,17 @@
 
 - Cadastro de usuários
 
-  [] Email obrigátorio nos cadastros.
+  [x] Email obrigátorio nos cadastros.
 
-  [] Cadastro único por email.
+  [x] Cadastro único por email.
 
 - Cadastro de Tags
 
-  [] Proibido duplicata de Tags.
+  [x] Proibido duplicata de Tags.
 
-  [] Não é permitido cadastro de Tags sem nome.
+  [x] Não é permitido cadastro de Tags sem nome.
 
-  [] Cadastro de Tags é feito apenas por administradores.
+  [x] Cadastro de Tags é feito apenas por administradores.
 
 - Cadastro de elogios
 
