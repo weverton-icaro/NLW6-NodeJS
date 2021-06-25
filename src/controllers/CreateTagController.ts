@@ -5,6 +5,10 @@ class CreateTagController {
   async store(request: Request, response: Response) {
     const { name } = request.body;
 
+    if (name === '') {
+      throw new Error('Tag cannot be empty.');
+    }
+
     const createTagService = new CreateTagService();
 
     const tag = await createTagService.execute(name);
