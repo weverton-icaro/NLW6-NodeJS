@@ -1,7 +1,16 @@
 import { Request, Response } from 'express';
 import CreateTagService from '../services/CreateTagService';
+import ListTagsService from '../services/ListTagsService';
 
-class CreateTagController {
+class TagsController {
+  async index(request: Request, response: Response) {
+    const listTagsService = new ListTagsService();
+
+    const tags = await listTagsService.execute();
+
+    return response.status(200).json(tags);
+  }
+
   async store(request: Request, response: Response) {
     const { name } = request.body;
 
@@ -17,4 +26,4 @@ class CreateTagController {
   }
 }
 
-export default CreateTagController;
+export default TagsController;

@@ -1,7 +1,16 @@
 import { Request, Response } from 'express';
 import CreateUserService from '../services/CreateUserService';
+import ListUsersService from '../services/ListUsersService';
 
-class CreateUserController {
+class UserController {
+  async index(request: Request, response: Response) {
+    const listUsers = new ListUsersService();
+
+    const users = await listUsers.execute();
+
+    return response.status(200).json(users);
+  }
+
   async store(request: Request, response: Response) {
     const { name, email, admin = false, password } = request.body;
 
@@ -30,4 +39,4 @@ class CreateUserController {
   }
 }
 
-export default CreateUserController;
+export default UserController;

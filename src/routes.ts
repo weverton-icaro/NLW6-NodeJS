@@ -1,20 +1,37 @@
 import { Router } from 'express';
-import CreateUserController from './controllers/CreateUserController';
-import CreateTagController from './controllers/CreateTagController';
+import UserController from './controllers/UserController';
+import TagController from './controllers/TagController';
 import { ensureAdmin } from './middlewares/ensureAdmin';
 import AuthenticateUserController from './controllers/AuthenticateUserController';
-import CreateComplimentController from './controllers/CreateComplimentController';
+import ComplimentController from './controllers/ComplimentController';
+import { ensureAuthenticated } from './middlewares/ensureAuthenticated';
 
 const router = Router();
 
-const createUserController = new CreateUserController();
-const createTagController = new CreateTagController();
+const userController = new UserController();
+const tagController = new TagController();
 const authenticateUserController = new AuthenticateUserController();
-const createComplimentController = new CreateComplimentController();
+const complimentController = new ComplimentController();
 
-router.post('/users', createUserController.store);
+router.post('/users', userController.store);
+router.get('/users', ensureAuthenticated, userController.index);
 router.post('/session', authenticateUserController.store);
-router.post('/tags', ensureAdmin, createTagController.store);
-router.post('/compliments', createComplimentController.store);
+router.post('/tags', ensureAuthenticated, ensureAdmin, tagController.store);
+router.get('/tags', ensureAuthenticated, tagController.index);
+router.post(
+  '/users/compliments/create',
+  ensureAuthenticated,
+  complimentController.store
+);
+router.get(
+  '/users/compliments/receive',
+  ensureAuthenticated,
+  complimentController.receive
+);
+router.get(
+  '/users/compliments/send',
+  ensureAuthenticated,
+  complimentController.sender
+);
 
 export default router;
